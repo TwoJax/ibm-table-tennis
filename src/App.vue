@@ -1,10 +1,18 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <h1 class="bg-red-500 text-white">Testing tailwind</h1>
+  <nav-bar :player-modal-visible="playerModalVisible" @open-modal="playerModalVisible = true" />
+
+  <router-view />
+
+  <player-form-modal :visible="playerModalVisible" @close-modal="playerModalVisible = false" />
 </template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+import NavBar from '@/components/ui/NavBar.vue'
+import PlayerFormModal from '@/components/players/FormModal.vue'
+
+const playerModalVisible = ref(false)
+</script>
 
 <style scoped></style>
