@@ -1,0 +1,12 @@
+@import './tailwindcss.css';
+
+$feature-flags: (
+  grid-columns-16: true
+);
+
+@import 'carbon-components/scss/globals/scss/styles';
+
+#app > .cv-grid {
+  // margin-left: 3rem;
+  margin-top: 5rem;
+}
