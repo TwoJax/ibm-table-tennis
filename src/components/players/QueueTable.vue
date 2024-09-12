@@ -30,5 +30,8 @@ interface Props {
   isLoading: boolean,
 }
 
-defineProps<Props>()
+withDefaults(defineProps<Props>(),{
+  data: {},
+  isLoading: false,
+})
 </script>

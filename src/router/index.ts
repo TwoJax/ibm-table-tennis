@@ -5,17 +5,15 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
+      path: '/player_queue',
+      alias: '/',
       name: 'player-queue',
       component: PlayerQueueView
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
+      path: '/bright_skies_queue',
+      name: 'bright-skies-queue',
+      component: () => import('@/views/bright_skies/QueueView.vue')
     }
   ]
 })
