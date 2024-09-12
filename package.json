@@ -22,6 +22,7 @@
     "@tanstack/vue-query": "^5.55.4",
     "carbon-components": "^10.58.15",
     "firebase": "^10.13.1",
+    "netlify": "^13.1.21",
     "pinia": "^2.1.7",
     "vue": "^3.4.29",
     "vue-router": "^4.3.3"
