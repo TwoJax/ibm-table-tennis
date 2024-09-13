@@ -14,7 +14,7 @@ const router = createRouter({
       path: '/bright_skies_queue',
       name: 'bright-skies-queue',
       component: () => import('@/views/bright_skies/QueueView.vue')
-    }
+    },
   ]
 })
 
