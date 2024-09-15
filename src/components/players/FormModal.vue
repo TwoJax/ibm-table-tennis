@@ -7,9 +7,15 @@
 
     <template #content>
       <cv-form>
-        <div class="flex justify-between items-center space-x-4">
-          <cv-text-input label="First name" />
-          <cv-text-input label="Last name" />
+        <div class="grid grid-cols-2 gap-4">
+          <div class="col-span-1">
+            <cv-text-input v-model="firstName" label="First name"
+              :invalid-message="v.firstName?.$errors[0]?.$message" />
+          </div>
+
+          <div class="col-span-1">
+            <cv-text-input v-model="lastName" label="Last name" :invalid-message="v.lastName?.$errors[0]?.$message" />
+          </div>
         </div>
       </cv-form>
     </template>
@@ -17,7 +23,13 @@
 </template>
 
 <script setup lang="ts">
-defineEmits(['close-modal'])
+import { computed, ref } from 'vue'
+import { useVuelidate } from '@vuelidate/core'
+import { minLength, required } from '@vuelidate/validators'
+
+import { useTableTennisRegistrationStore } from '@/stores/table_tennis_registration';
+
+const emit = defineEmits(['close-modal'])
 
 interface Props {
   visible: boolean
@@ -25,8 +37,29 @@ interface Props {
 
 defineProps<Props>()
 
-const onPrimaryClick = () => {
-  console.log('Add player!')
+const store = useTableTennisRegistrationStore()
+
+const firstName = ref('')
+const lastName = ref('')
+
+const rules = computed(() => {
+  return {
+    firstName: { minLength, required },
+    lastName: { minLength, required },
+  }
+})
+
+const v = useVuelidate(rules, { firstName, lastName })
+
+const onPrimaryClick = async () => {
+  const result = await v.value.$validate()
+
+  if (!result) {
+    return
+  } else {
+    store.addPlayer(firstName.value, lastName.value)
+    emit('close-modal')
+  }
 }
 </script>
 

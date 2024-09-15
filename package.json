@@ -16,15 +16,24 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@brayamvalero/vue3-skeleton": "^0.0.32",
     "@carbon/grid": "^11.26.0",
     "@carbon/icons-vue": "^10.96.1",
+    "@carbon/themes": "^11.40.0",
+    "@carbon/type": "^11.31.0",
     "@carbon/vue": "^3.0.20",
-    "@tanstack/vue-query": "^5.55.4",
+    "@tanstack/vue-query": "^5.56.2",
+    "@tanstack/vue-query-devtools": "^5.56.2",
+    "@vuelidate/core": "^2.0.3",
+    "@vuelidate/validators": "^2.0.4",
     "@vueuse/core": "^11.0.3",
     "carbon-components": "^10.58.15",
+    "date-fns": "^3.6.0",
     "firebase": "^10.13.1",
     "netlify": "^13.1.21",
     "pinia": "^2.1.7",
+    "sortablejs": "^1.15.3",
+    "sortablejs-vue3": "^1.2.11",
     "vue": "^3.4.29",
     "vue-router": "^4.3.3"
   },
@@ -33,6 +42,7 @@
     "@tsconfig/node20": "^20.1.4",
     "@types/jsdom": "^21.1.7",
     "@types/node": "^20.14.5",
+    "@types/sortablejs": "^1.15.8",
     "@vitejs/plugin-vue": "^5.0.5",
     "@vue/eslint-config-prettier": "^9.0.0",
     "@vue/eslint-config-typescript": "^13.0.0",
@@ -56,5 +66,5 @@
     "vitest": "^1.6.0",
     "vue-tsc": "^2.0.21"
   },
-  "packageManager": "yarn@4.4.1+sha512.f825273d0689cc9ead3259c14998037662f1dcd06912637b21a450e8da7cfeb4b1965bbee73d16927baa1201054126bc385c6f43ff4aa705c8631d26e12460f1"
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

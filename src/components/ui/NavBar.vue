@@ -6,26 +6,14 @@
             Table Tennis
         </cv-header-name>
 
-        <cv-header-nav>
-            <cv-header-menu-item :active="true" to="/">Player Queue</cv-header-menu-item>
-        </cv-header-nav>
-
         <template v-slot:header-global>
-            <cv-header-global-action
-                :active="playerModalVisible"
-                aria-label="Sign in new player"
-                label="Sign in player"
-                @click="() => $emit('open-modal')"
-            >
+            <cv-header-global-action :active="playerModalVisible" aria-label="Sign in new player" label="Sign in player"
+                @click="() => $emit('open-modal')">
                 <user-follow-20 />
             </cv-header-global-action>
 
-            <cv-header-global-action
-                aria-label="App switcher"
-                label="App Switcher"
-                tipAlignment="end"
-                @click="() => appSwitcherVisible = !appSwitcherVisible"
-            >
+            <cv-header-global-action aria-label="App switcher" label="App Switcher" tipAlignment="end"
+                @click="() => appSwitcherVisible = !appSwitcherVisible">
                 <switcher-20 />
             </cv-header-global-action>
         </template>
