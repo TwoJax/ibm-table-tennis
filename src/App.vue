@@ -1,5 +1,6 @@
 <template>
-  <nav-bar :player-modal-visible="playerModalVisible" @open-modal="playerModalVisible = true" />
+  <nav-bar v-show="!$route.meta.hideNavbar" :player-modal-visible="playerModalVisible"
+    @open-modal="playerModalVisible = true" />
 
   <router-view />
 
