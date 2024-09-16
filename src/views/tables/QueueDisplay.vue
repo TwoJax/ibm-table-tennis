@@ -8,26 +8,31 @@
       />
     </div>
 
-    <div class="mb-16">
+    <div class="mb-10">
       <h2 class="font-bold text-5xl mb-[24px]">Next up</h2>
       <p class="text-5xl italic">Please check in with IBM staff</p>
     </div>
 
-    <div class="flex flex-col space-y-4 mt-[70px]">
-      <h3
-        v-for="(player, index) in currentGame[0]?.players"
-        :key="index"
-        class="font-light text-6xl text-[#ffdb50]"
+    <div>
+      <div
+        v-if="currentGame"
+        class="flex flex-col space-y-5"
       >
-        {{ player }}.
-      </h3>
+        <h3
+          v-for="(player, index) in currentGame[0]?.players"
+          :key="index"
+          class="font-light text-6xl text-[#ffdb50]"
+        >
+          {{ player }}.
+        </h3>
+      </div>
     </div>
   </section>
 
   <section class="py-[100px] px-[150px]">
     <h2 class="font-bold text-5xl text-[#002ea1] mb-8">On deck</h2>
 
-    <div class="flex flex-col space-y-4">
+    <div class="flex flex-col space-y-5">
       <h3
         v-for="player in onDeck"
         :key="player.id"
@@ -55,14 +60,15 @@
   const tableNumber = $route.params.number
 
   const currentGame = computed(() =>
-    store.games!.filter((game) => game.table_number == tableNumber)
+    store.games?.filter((game) => game.table_number == tableNumber)
   )
-  const onDeck = store[`table${tableNumber}Queue`]
+  const onDeck = computed(() => store[`table${tableNumber}Queue`])
 
   onMounted(() => {
-    setInterval(() => {
-      store.refreshData()
-    }, 30_000)
+    store.initializeState()
+    // setInterval(() => {
+    //   store.refreshData()
+    // }, 30_000)
   })
 </script>
 

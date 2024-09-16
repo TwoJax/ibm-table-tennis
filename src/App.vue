@@ -5,7 +5,7 @@
     @open-modal="playerModalVisible = true"
   />
 
-  <router-view @open-model="playerModalVisible = true" />
+  <router-view />
 
   <player-form-modal
     :visible="playerModalVisible"

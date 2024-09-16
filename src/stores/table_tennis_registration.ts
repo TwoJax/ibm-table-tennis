@@ -19,7 +19,7 @@ interface RegistrationTimestamp {
 }
 
 interface Registration {
-  id: string,
+  id?: string,
   assigned_to_table: number,
   first_name: string,
   last_name: string,
@@ -58,7 +58,7 @@ export const useTableTennisRegistrationStore = defineStore('tableTennisRegistrat
     const registrationsRef = collection(getFirestore(), 'table_tennis_registrations')
     const order = (unassignedPlayers.value?.length ?? 0) + 1
 
-    const newPlayer = {
+    const newPlayer: Registration = {
       first_name: firstName,
       last_name: lastName,
       order,
@@ -67,7 +67,9 @@ export const useTableTennisRegistrationStore = defineStore('tableTennisRegistrat
       created_at: Timestamp.fromDate(new Date())
     }
 
-    await addDoc(registrationsRef, newPlayer)
+    const playerRef = await addDoc(registrationsRef, newPlayer)
+    newPlayer.id = playerRef.id
+
     unassignedPlayers.value?.push(newPlayer as Registration)
   }
 
@@ -110,7 +112,7 @@ export const useTableTennisRegistrationStore = defineStore('tableTennisRegistrat
       registration.order = index + 1
     })
 
-    await writeReorderToDb([...fromTable, ...toTable])
+    await writeReorderToDb(toTable)
 
     this.$patch({
       [fromQueueName]: fromTable,
@@ -188,7 +190,7 @@ export const useTableTennisRegistrationStore = defineStore('tableTennisRegistrat
     const batch = writeBatch(db)
 
     registrations.forEach(registration => {
-      batch.update(doc(db, 'table_tennis_registrations', registration.id), registration)
+      batch.set(doc(db, 'table_tennis_registrations', registration.id), registration, { merge: true })
     });
 
     await batch.commit()
