@@ -15,12 +15,12 @@ app.use(router)
 app.use(CarbonComponentsVue)
 
 initializeApp({
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID
+  apiKey: 'AIzaSyB4kgXI5egx-ZLwgpjOJP_r4nSM2YkKToM',
+  authDomain: 'ibm-table-tennis-a1532.firebaseapp.com',
+  projectId: 'ibm-table-tennis-a1532',
+  storageBucket: 'ibm-table-tennis-a1532.appspot.com',
+  messagingSenderId: '44006916441',
+  appId: '1:44006916441:web:433d466ca6f5fd9bb34c48'
 })
 
 app.mount('#app')
