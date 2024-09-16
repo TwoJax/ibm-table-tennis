@@ -37,6 +37,11 @@
       </h3>
     </div>
   </section>
+
+  <img
+    src="@/assets/tennis-ball-background.svg"
+    class="absolute bottom-0 right-0"
+  />
 </template>
 
 <script setup lang="ts">
