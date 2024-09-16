@@ -66,9 +66,10 @@
 
   onMounted(() => {
     store.initializeState()
-    // setInterval(() => {
-    //   store.refreshData()
-    // }, 30_000)
+
+    setInterval(() => {
+      store.refreshData()
+    }, 15_000)
   })
 </script>
 
