@@ -3,7 +3,6 @@ import './assets/application.scss'
 import { createApp } from 'vue'
 import { initializeApp } from 'firebase/app'
 import { createPinia } from 'pinia'
-import { VueQueryPlugin } from '@tanstack/vue-query'
 import CarbonComponentsVue from '@carbon/vue'
 
 import App from './App.vue'
@@ -14,7 +13,6 @@ const app = createApp(App)
 app.use(createPinia())
 app.use(router)
 app.use(CarbonComponentsVue)
-app.use(VueQueryPlugin)
 
 initializeApp({
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
