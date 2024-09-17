@@ -9,7 +9,7 @@
 $feature-flags: (
   ui-shell: true,
   grid-columns-16: true,
-  enable-css-custom-properties: true,
+  enable-css-custom-properties: true
 );
 
 // Feature flags
@@ -23,10 +23,14 @@ $feature-flags: (
 $carbon--theme: $carbon--theme--g10;
 
 // all Carbon components
-@import 'carbon-components/scss/globals/scss/styles'; 
+@import 'carbon-components/scss/globals/scss/styles';
 @import './tailwindcss.css';
 
 #app > .cv-grid {
   // margin-left: 3rem;
   margin-top: 5rem;
+}
+
+#app {
+  padding-bottom: 3rem;
 }

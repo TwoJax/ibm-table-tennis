@@ -261,6 +261,7 @@
                       <th><span class="bx--table-header-label">First name</span></th>
                       <th><span class="bx--table-header-label">Last name</span></th>
                       <th><span class="bx--table-header-label">Checked in at</span></th>
+                      <th class="w-20"></th>
                     </tr>
                   </thead>
 
@@ -275,12 +276,15 @@
                       <td>
                         <skeleton />
                       </td>
+                      <td class="w-20">
+                        <skeleton />
+                      </td>
                     </tr>
                   </tbody>
 
                   <tbody v-else-if="!store.unassignedPlayers.length">
                     <tr>
-                      <td colspan="3">
+                      <td colspan="4">
                         <div class="flex items-center justify-center italic">
                           No players have been added to the queue yet.
                         </div>
@@ -307,6 +311,13 @@
                         <td>{{ element.first_name }}</td>
                         <td>{{ element.last_name }}</td>
                         <td>{{ userFriendlyDate(element.created_at) }}</td>
+                        <td class="w-20">
+                          <cv-button
+                            kind="ghost"
+                            :icon="TrashCan24"
+                            @click="onRemoveClick(element)"
+                          />
+                        </td>
                       </tr>
                     </template>
                   </sortable>
@@ -318,10 +329,27 @@
       </cv-column>
     </cv-row>
   </cv-grid>
+
+  <cv-modal
+    :visible="showDeleteModal"
+    kind="danger"
+    @primary-click="onRemovePlayer"
+  >
+    <template #title>Are you sure?</template>
+    <template #primary-button>Remove Player</template>
+    <template #secondary-button>Cancel</template>
+
+    <template v-slot:content>
+      <p>
+        Are you sure you want to remove {{ selectedPlayer?.first_name }}
+        {{ selectedPlayer?.last_name[0] }}? This action cannot be undone.
+      </p>
+    </template>
+  </cv-modal>
 </template>
 
 <script setup lang="ts">
-  import { computed, onMounted } from 'vue'
+  import { computed, onMounted, ref } from 'vue'
   import { Skeleton } from '@brayamvalero/vue3-skeleton'
   import { format } from 'date-fns'
   import { Timestamp } from 'firebase/firestore'
@@ -331,7 +359,7 @@
   import type { SortableEvent } from 'sortablejs'
 
   import ScreenMap20 from '@carbon/icons-vue/es/screen-map/20'
-  import UserFollow20 from '@carbon/icons-vue/es/user--follow/20'
+  import TrashCan24 from '@carbon/icons-vue/es/trash-can/24'
   import ViewNext20 from '@carbon/icons-vue/es/view-next/20'
 
   import '@brayamvalero/vue3-skeleton/dist/style.css'
@@ -344,6 +372,9 @@
 
   const game1 = computed(() => store.games?.find((game) => game.table_number === 1))
   const game2 = computed(() => store.games?.find((game) => game.table_number === 2))
+
+  const selectedPlayer = ref(null)
+  const showDeleteModal = ref(false)
 
   const userFriendlyTime = (date: object) => {
     const timestamp = new Timestamp(date['seconds'], date['nanoseconds']).toDate()
@@ -370,6 +401,18 @@
     await store.move(fromTableNumber, toTableNumber, id, newIndex)
 
     document.querySelector('[draggable=false]')?.remove()
+  }
+
+  const onRemoveClick = (player) => {
+    selectedPlayer.value = player
+    showDeleteModal.value = true
+  }
+
+  const onRemovePlayer = () => {
+    store.removePlayer(selectedPlayer.value.id)
+
+    selectedPlayer.value = null
+    showDeleteModal.value = false
   }
 
   const onUpdate = (event: SortableEvent) => {

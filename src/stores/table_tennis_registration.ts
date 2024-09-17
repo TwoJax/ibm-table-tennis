@@ -1,9 +1,10 @@
-import { computed, ref, toRaw } from 'vue'
+import { ref } from 'vue'
 import { defineStore } from 'pinia'
 
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   getDocs,
   getFirestore,
@@ -184,6 +185,14 @@ export const useTableTennisRegistrationStore = defineStore('tableTennisRegistrat
     games.value = await getGames()
   }
 
+  async function removePlayer(id: string) {
+    const player = unassignedPlayers.value?.findIndex(player => player.id === id)
+
+    await deleteDoc(doc(getFirestore(), 'table_tennis_registrations', id))
+
+    unassignedPlayers.value?.splice(player!, 1)
+  }
+
   async function writeReorderToDb(registrations) {
     const db = getFirestore()
 
@@ -203,6 +212,7 @@ export const useTableTennisRegistrationStore = defineStore('tableTennisRegistrat
     initialStateLoading,
     move,
     refreshData,
+    removePlayer,
     reorder,
     startGame,
     table1Queue,
