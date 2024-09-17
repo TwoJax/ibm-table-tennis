@@ -60,7 +60,7 @@
   const tableNumber = $route.params.number
 
   const currentGame = computed(() =>
-    store.games?.filter((game) => game.table_number == tableNumber)
+    store.games?.filter((game) => game.table_number === Number(tableNumber))
   )
   const onDeck = computed(() => store[`table${tableNumber}Queue`])
 

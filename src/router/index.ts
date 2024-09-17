@@ -9,7 +9,10 @@ const router = createRouter({
       path: '/player_queue',
       alias: '/',
       name: 'player-queue',
-      component: PlayerQueueView
+      component: PlayerQueueView,
+      meta: {
+        title: 'Table Tennis'
+      }
     },
     {
       path: '/table/:number',
@@ -20,9 +23,21 @@ const router = createRouter({
       }
     },
     {
-      path: '/bright_skies_queue',
+      path: '/bright_skies',
+      name: 'bright-skies',
+      component: () => import('@/views/bright_skies/QueueView.vue'),
+      meta: {
+        title: 'Bright Skies',
+        hideButton: true
+      }
+    },
+    {
+      path: '/bright_skies/queue',
       name: 'bright-skies-queue',
-      component: () => import('@/views/bright_skies/QueueView.vue')
+      component: () => import('@/views/bright_skies/QueueDisplay.vue'),
+      meta: {
+        hideNavbar: true,
+      }
     },
   ]
 })

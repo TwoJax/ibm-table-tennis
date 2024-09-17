@@ -1,7 +1,9 @@
 <template>
   <nav-bar
     v-show="!$route.meta.hideNavbar"
+    :hide-button="$route.meta.hideButton"
     :player-modal-visible="playerModalVisible"
+    :title="$route.meta.title"
     @open-modal="playerModalVisible = true"
   />
 
