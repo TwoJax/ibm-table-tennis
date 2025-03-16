@@ -56,7 +56,7 @@
         </cv-tile>
       </cv-column>
 
-      <cv-column>
+      <cv-column v-if="enableSecondTable">
         <cv-tile>
           <div class="flex items-center justify-between">
             <h2 class="flex items-end space-x-2">
@@ -158,7 +158,7 @@
                     @add="onAdd"
                     @update="onUpdate"
                   >
-                    <template #item="{ element, index }">
+                    <template #item="{ element }">
                       <tr
                         class="draggable cv-data-table-row-inner cv-data-table-row"
                         :key="element.id"
@@ -177,7 +177,7 @@
         </div>
       </cv-column>
 
-      <cv-column>
+      <cv-column v-if="enableSecondTable">
         <div
           class="cv-data-table"
           style="width: 100%"
@@ -369,6 +369,8 @@
   onMounted(() => {
     store.initializeState()
   })
+
+  const enableSecondTable = ref(false)
 
   const game1 = computed(() => store.games?.find((game) => game.table_number === 1))
   const game2 = computed(() => store.games?.find((game) => game.table_number === 2))
