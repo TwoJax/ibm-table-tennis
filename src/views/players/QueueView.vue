@@ -282,28 +282,26 @@
                     </tr>
                   </tbody>
 
-                  <tbody v-else-if="!store.unassignedPlayers.length">
-                    <tr>
-                      <td colspan="4">
-                        <div class="flex items-center justify-center italic">
-                          No players have been added to the queue yet.
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-
                   <sortable
-                    v-else
                     tag="tbody"
                     class="unassigned-queue"
-                    :list="store.unassignedPlayers"
+                    :list="store.unassignedPlayers?.length ? store.unassignedPlayers : [{ state: 'empty' }]"
                     item-key="id"
                     :options="{ group: { name: 'unassigned', put: ['table1', 'table2'] } }"
                     @add="onAdd"
                     @update="onUpdate"
                   >
                     <template #item="{ element, index }">
+                      <tr v-if="element.state === 'empty'">
+                        <td colspan="4">
+                          <div class="flex items-center justify-center italic">
+                            No players have been added to the queue yet.
+                          </div>
+                        </td>
+                      </tr>
+
                       <tr
+                        v-else
                         class="draggable cv-data-table-row-inner cv-data-table-row"
                         :key="element.id"
                         :value="element.id"
@@ -320,6 +318,13 @@
                         </td>
                       </tr>
                     </template>
+                    <tr>
+                      <td colspan="4">
+                        <div class="flex items-center justify-center italic">
+                          No players have been added to the queue yet.
+                        </div>
+                      </td>
+                    </tr>
                   </sortable>
                 </table>
               </div>
